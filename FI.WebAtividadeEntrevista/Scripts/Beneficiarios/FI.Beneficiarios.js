@@ -4,7 +4,7 @@ $(document).ready(function () {
         const nome = $('#NomeBeneficiario').val().trim();
 
         if (!cpf || !nome) {
-            ModalDialog("Erro", "Todos os campos do beneficiário precisam ser preenchidos");
+            ModalDialog("Erro", "Preencha todos os campos do beneficiário");
             return;
         }
 
@@ -33,7 +33,7 @@ $(document).ready(function () {
         if (id > 0) {
             if (confirm("Deseja realmente excluir este beneficiário?")) {
                 $.ajax({
-                    url: '/Cliente/DeletarBeneficiario',
+                    url: '/Cliente/DeletarBeneficiario', 
                     method: 'POST',
                     data: { id: id },
                     success: function (response) {

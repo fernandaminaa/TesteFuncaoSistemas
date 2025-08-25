@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FI.AtividadeEntrevista.BLL
 {
@@ -14,7 +10,7 @@ namespace FI.AtividadeEntrevista.BLL
         /// <param name="beneficiario">Objeto de beneficiario</param>
         public long Incluir(DML.Beneficiario beneficiario)
         {
-            DAL.Beneficiarios.DaoBeneficiario daoBeneficiario = new DAL.Beneficiarios.DaoBeneficiario();
+            DAL.DaoBeneficiario daoBeneficiario = new DAL.DaoBeneficiario();
             return daoBeneficiario.Incluir(beneficiario);
         }
 
@@ -23,7 +19,7 @@ namespace FI.AtividadeEntrevista.BLL
         /// </summary>
         public List<DML.Beneficiario> ListarPorCliente(long clienteId)
         {
-            DAL.Beneficiarios.DaoBeneficiario daoBeneficiario = new DAL.Beneficiarios.DaoBeneficiario();
+            DAL.DaoBeneficiario daoBeneficiario = new DAL.DaoBeneficiario();
             return daoBeneficiario.ListarPorCliente(clienteId);
         }
 
@@ -33,7 +29,7 @@ namespace FI.AtividadeEntrevista.BLL
         /// <param name="beneficiario">Objeto de beneficiario</param>
         public void Alterar(DML.Beneficiario beneficiario)
         {
-            DAL.Beneficiarios.DaoBeneficiario daoBeneficiario = new DAL.Beneficiarios.DaoBeneficiario();
+            DAL.DaoBeneficiario daoBeneficiario = new DAL.DaoBeneficiario();
             daoBeneficiario.Alterar(beneficiario);
         }
 
@@ -44,7 +40,7 @@ namespace FI.AtividadeEntrevista.BLL
         /// <returns></returns>
         public void Excluir(long id)
         {
-            DAL.Beneficiarios.DaoBeneficiario daoBeneficiario = new DAL.Beneficiarios.DaoBeneficiario();
+            DAL.DaoBeneficiario daoBeneficiario = new DAL.DaoBeneficiario();
             daoBeneficiario.Excluir(id);
         }
     }

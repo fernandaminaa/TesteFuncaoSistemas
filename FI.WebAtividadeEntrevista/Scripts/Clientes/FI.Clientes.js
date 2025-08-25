@@ -41,7 +41,7 @@ function incluirCliente() {
         data: JSON.stringify(cliente),
         contentType: 'application/json',
         success: function (result) {
-            const modalId = ModalDialog("Sucesso", "Cliente adicionado com sucesso!");
+            const modalId = ModalDialog("Sucesso", "Cliente incluído com sucesso");
 
             $('#' + modalId).on('hidden.bs.modal', function () {
                 window.location.href = urlRetorno;

@@ -1,10 +1,8 @@
 ﻿using FI.AtividadeEntrevista.BLL;
 using FI.AtividadeEntrevista.DML;
-using FI.WebAtividadeEntrevista.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebAtividadeEntrevista.Models;
 
@@ -28,9 +26,6 @@ namespace WebAtividadeEntrevista.Controllers
         {
             try
             {
-
-                BoCliente bo = new BoCliente();
-
                 if (!this.ModelState.IsValid)
                 {
                     List<string> erros = (from item in ModelState.Values
@@ -38,27 +33,29 @@ namespace WebAtividadeEntrevista.Controllers
                                           select error.ErrorMessage).ToList();
 
                     Response.StatusCode = 400;
-                    return Json(string.Join(Environment.NewLine, erros));
+                    return Json(new { Result = "ERROR", Message = string.Join(Environment.NewLine, erros) });
                 }
 
-                if (bo.VerificarExistencia(model.CPF))
+                BoCliente boCliente = new BoCliente();
+
+                if (boCliente.VerificarExistencia(model.CPF))
                 {
                     Response.StatusCode = 400;
-                    return Json("Já existe um cliente com este CPF.");
+                    return Json(new { Result = "ERROR", Message = "Já existe um cliente cadastrado com esse CPF" });
                 }
 
-                //List<string> cpfsDuplicados = model.Beneficiarios.GroupBy(b => b.CPF)
-                //                                                    .Where(g => g.Count() > 1)
-                //                                                    .Select(g => g.Key)
-                //                                                    .ToList();
+                List<string> cpfsDuplicados = model.Beneficiarios.GroupBy(b => b.CPF)
+                                                                 .Where(g => g.Count() > 1)
+                                                                 .Select(g => g.Key)
+                                                                 .ToList();
 
-                //if (cpfsDuplicados.Any())
-                //{
-                //    Response.StatusCode = 400;
-                //    return Json(new { Result = "ERROR", Message = $"Existem beneficiários com o mesmo CPF: {string.Join(", ", cpfsDuplicados)}" });
-                //}
+                if (cpfsDuplicados.Any())
+                {
+                    Response.StatusCode = 400;
+                    return Json(new { Result = "ERROR", Message = $"Existem beneficiários com o mesmo CPF: {string.Join(", ", cpfsDuplicados)}" });
+                }
 
-                model.Id = bo.Incluir(new Cliente()
+                model.Id = boCliente.Incluir(new Cliente()
                 {
                     CEP = model.CEP,
                     Cidade = model.Cidade,
@@ -229,6 +226,7 @@ namespace WebAtividadeEntrevista.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         public ActionResult Deletar(long id)
         {
@@ -244,7 +242,7 @@ namespace WebAtividadeEntrevista.Controllers
 
                 BoCliente boCliente = new BoCliente();
                 boCliente.Excluir(id);
-
+                
                 return Json(new { Result = "OK", Message = "Cliente excluído com sucesso!" });
             }
             catch (Exception ex)

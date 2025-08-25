@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FI.AtividadeEntrevista.DAL.Beneficiarios
+namespace FI.AtividadeEntrevista.DAL
 {
+    /// <summary>
+    /// Classe de acesso a dados de Beneficiario
+    /// </summary>
     internal class DaoBeneficiario : AcessoDados
     {
         /// <summary>
@@ -78,7 +77,7 @@ namespace FI.AtividadeEntrevista.DAL.Beneficiarios
         private List<DML.Beneficiario> Converter(DataSet ds)
         {
             List<DML.Beneficiario> lista = new List<DML.Beneficiario>();
-
+            
             if (ds != null && ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds.Tables[0].Rows)
@@ -88,7 +87,7 @@ namespace FI.AtividadeEntrevista.DAL.Beneficiarios
                     beneficiario.ClienteId = row.Field<long>("IdCliente");
                     beneficiario.Nome = row.Field<string>("Nome");
                     beneficiario.CPF = row.Field<string>("CPF");
-
+                   
                     lista.Add(beneficiario);
                 }
             }

@@ -1,14 +1,18 @@
-﻿using FI.WebAtividadeEntrevista.Validations;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.Text.RegularExpressions;
+using WebAtividadeEntrevista.Validations;
 
-namespace FI.WebAtividadeEntrevista.Models
+namespace WebAtividadeEntrevista.Models
 {
-    public class BeneficiarioModel
+    /// <summary>
+    /// Classe de Modelo de Beneficiario
+    /// </summary>
+    public class BeneficiarioModel 
     {
+        #region Private Properties
+        private string _cpf;
+        #endregion Private Properties
+
         public long? Id { get; set; }
 
         /// <summary>
@@ -20,8 +24,12 @@ namespace FI.WebAtividadeEntrevista.Models
         /// <summary>
         /// CPF
         /// </summary>
-        [Required(ErrorMessage = "O CPF é obrigatório")]
-        [ValidateCPF(ErrorMessage = "CPF inválido")]
-        public string CPF { get; set; }
+        [Required]
+        [CPFValidate(ErrorMessage = "CPF do benefici�rio inv�lido")]
+        public string CPF
+        {
+            get => _cpf;
+            set => _cpf = Regex.Replace(value, @"\D", "");
+        }
     }
 }

@@ -35,7 +35,7 @@
 
         $('#formCadastroCliente').submit(function (event) {
             event.preventDefault();
-            alterarCliente();
+            alterarCliente();   
         });
     }
 })
@@ -65,7 +65,7 @@ function alterarCliente() {
     });
 
     $.ajax({
-        url: urlPost,
+        url: urlPost, 
         type: 'POST',
         data: JSON.stringify(cliente),
         contentType: 'application/json',

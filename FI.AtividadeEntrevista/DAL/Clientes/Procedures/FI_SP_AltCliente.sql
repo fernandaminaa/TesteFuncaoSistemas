@@ -9,7 +9,7 @@
     @EMAIL         VARCHAR (2079),
     @TELEFONE      VARCHAR (15),
 	@CPF		   VARCHAR (11) = NULL,
-	@Id           BIGINT
+	@Id            BIGINT
 AS
 BEGIN
 	UPDATE CLIENTES 
@@ -23,6 +23,6 @@ BEGIN
 		LOGRADOURO = @LOGRADOURO, 
 		EMAIL = @EMAIL, 
 		TELEFONE = @TELEFONE,
-		@CPF = @CPF
+		CPF = @CPF
 	WHERE Id = @Id
 END
